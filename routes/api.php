@@ -6,3 +6,4 @@ use App\Http\Controllers\ProductController;
 
 Route::post('products', [ProductController::class, 'store']);
 Route::put('product/{barcode}', [ProductController::class, 'update']);
+Route::delete('product/{barcode}', [ProductController::class, 'delete']);

@@ -42,4 +42,15 @@ class ProductController extends Controller
             "message" => "Product updated successfully"
         ], 200);
     }
+
+    public function delete(Request $request, $barcode)
+    {
+        $product = Product::findOrFail($barcode);
+        
+        $product->delete();
+
+        return response()->json([
+            "message" => "Product deleted successfully"
+        ], 200);
+    }
 }

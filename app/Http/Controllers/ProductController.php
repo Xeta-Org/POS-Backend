@@ -15,6 +15,7 @@ class ProductController extends Controller
             'cost_price' => 'required|numeric',
             'selling_price' => 'required|numeric',
             'quantity' => 'required|integer',
+            'minimum_stock' => 'required|integer',
         ]);
 
         $product = Product::create($validatedData);
@@ -22,5 +23,23 @@ class ProductController extends Controller
         return response()->json([
             "message" => "Product created successfully"
             ], 200);
+    }
+
+    public function update(Request $request, $barcode)
+    {
+        $validatedData = $request->validate([
+            "product_name" => 'required|string',
+            "cost_price" => 'required|numeric',
+            "selling_price" => 'required|numeric',
+            "quantity" => 'required|integer',
+            "minimum_stock" => 'required|integer',
+        ]);
+
+        $product = Product::findOrFail($barcode);
+        $product->update($validatedData);
+
+        return response()->json([
+            "message" => "Product updated successfully"
+        ], 200);
     }
 }

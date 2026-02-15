@@ -17,7 +17,8 @@ class ProductStoreTest extends TestCase
             "product_name" => "Cot Sheet",
             "cost_price" => 850.00,
             "selling_price" => 1200.00,
-            "quantity" => 50
+            "quantity" => 50,
+            "minimum_stock" => 10
         ]);
 
         $response->assertStatus(200);
@@ -31,7 +32,8 @@ class ProductStoreTest extends TestCase
             "product_name" => "Cot Sheet",
             "cost_price" => 850.00,
             "selling_price" => 1200.00,
-            "quantity" => 50
+            "quantity" => 50,
+            "minimum_stock" => 10
         ]);
     }
 }

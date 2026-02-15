@@ -12,8 +12,8 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'barcode' => 'required|unique:products,barcode',
             'product_name' => 'required|string',
-            'cost_price' => 'required|numeric',
-            'selling_price' => 'required|numeric',
+            'cost_price' => 'required|numeric|min:0',
+            'selling_price' => 'required|numeric|min:0|gte:cost_price',
             'quantity' => 'required|integer',
             'minimum_stock' => 'required|integer',
         ]);
@@ -29,8 +29,8 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             "product_name" => 'required|string',
-            "cost_price" => 'required|numeric',
-            "selling_price" => 'required|numeric',
+            "cost_price" => 'required|numeric|min:0',
+            "selling_price" => 'required|numeric|min:0|gte:cost_price',
             "quantity" => 'required|integer',
             "minimum_stock" => 'required|integer',
         ]);

@@ -10,7 +10,7 @@ use Tests\TestCase;
 class ProductUpdateTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
-    public function test_example(): void
+    public function test_update_product(): void
     {
         $product = Product::create([
             "barcode" => "1234567890",

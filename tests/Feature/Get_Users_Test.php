@@ -25,7 +25,9 @@ class Get_Users_Test extends TestCase
                 'id',
                 'first_name',
                 'last_name',
-                'role'
+                'role',
+                'username',
+                'status'
             ]
         ]);
     }

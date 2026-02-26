@@ -2,25 +2,28 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
 
-class User_Update_Test extends TestCase
+class User_update_with_same_username_Test extends TestCase
 {
+    /**
+     * A basic feature test example.
+     */
     use RefreshDatabase;
-    public function test_update_user(): void
+    public function test_user_with_same_username(): void
     {
         $user = User::factory()->create();
 
         $response = $this->putJson("/api/user/{$user->id}", [
             "first_name" => "Test",
             "last_name" => "User",
-            "username" => "testuser",
+            "username" => $user->username,
             "role" => "cashier",
             "password" => "password",
-            'status' => "Inactive",
+            'status' => "Active",   
         ]);
 
         $response->assertStatus(200);
@@ -33,9 +36,8 @@ class User_Update_Test extends TestCase
             'id' => $user->id,
             'first_name' => "Test",
             'last_name' => "User",
-            "username"=> "testuser",
+            "username"=> $user->username,
             'role' => "cashier",
-            'status' => "Inactive",
         ]);
     }
 }

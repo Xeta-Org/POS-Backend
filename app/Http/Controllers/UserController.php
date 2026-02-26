@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Str;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -15,9 +16,10 @@ class UserController extends Controller
         $validated_data = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users',
             'role' => 'required|string|max:255',
             'password' => 'required|string|min:6',
-            'status' => 'string|in:active,inactive',
+            'status' => 'string|in:Active,Inactive',
         ]);
 
         $validated_data['password'] = Hash::make($validated_data['password']);
@@ -34,9 +36,12 @@ class UserController extends Controller
         $validated_data = $request->validate([
             "first_name" => "required|string|max:255",
             "last_name" => "required|string|max:255",
+            "username"=> ["required","string","max:255",
+                Rule::unique('users', 'username')->ignore($id)
+            ],
             "role" => "required|string|max:255",
             "password" => "required|string|min:6",
-            "status" => "required|string|in:active,inactive",
+            "status" => "required|string|in:Active,Inactive",
         ]);
 
         $validated_data["password"] = Hash::make($validated_data["password"]);
@@ -60,7 +65,7 @@ class UserController extends Controller
 
     public function get_users(): JsonResponse
     {
-        $users = User::all(['id', 'first_name', 'last_name', 'role']);
+        $users = User::all(['id', 'first_name', 'last_name', 'role', 'username', 'status']);
 
         return response()->json($users, 200);
     }

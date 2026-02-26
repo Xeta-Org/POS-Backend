@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('username')->unique();
             $table->string('role')->default('cachier');
             $table->string('password');
             $table->string('status')->default('active');

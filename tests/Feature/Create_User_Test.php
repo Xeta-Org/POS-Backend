@@ -14,6 +14,7 @@ class Create_User_Test extends TestCase
         $response = $this->postJson('/api/add-user', [
             'first_name' => 'John',
             'last_name' => 'Doe',
+            'username' => 'johndoe',
             'role' => 'admin',
             'password' => 'password123'
         ]);

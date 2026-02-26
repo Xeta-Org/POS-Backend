@@ -17,6 +17,7 @@ class UserController extends Controller
             'last_name' => 'required|string|max:255',
             'role' => 'required|string|max:255',
             'password' => 'required|string|min:6',
+            'status' => 'string|in:active,inactive',
         ]);
 
         $validated_data['password'] = Hash::make($validated_data['password']);
@@ -35,6 +36,7 @@ class UserController extends Controller
             "last_name" => "required|string|max:255",
             "role" => "required|string|max:255",
             "password" => "required|string|min:6",
+            "status" => "required|string|in:active,inactive",
         ]);
 
         $validated_data["password"] = Hash::make($validated_data["password"]);

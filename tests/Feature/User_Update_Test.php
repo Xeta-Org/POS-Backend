@@ -19,6 +19,7 @@ class User_Update_Test extends TestCase
             "last_name" => "User",
             "role" => "cashier",
             "password" => "password",
+            'status' => "active",
         ]);
 
         $response->assertStatus(200);

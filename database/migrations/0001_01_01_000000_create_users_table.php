@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('role')->default('cachier');
             $table->string('password');
+            $table->string('status')->default('active');
             $table->rememberToken();
             $table->timestamps();
         });

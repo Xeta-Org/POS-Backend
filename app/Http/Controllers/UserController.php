@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Str;
 use Illuminate\Validation\Rule;
@@ -68,6 +69,30 @@ class UserController extends Controller
         $users = User::all(['id', 'first_name', 'last_name', 'role', 'username', 'status']);
 
         return response()->json($users, 200);
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'username'=> 'required|string',
+            'password' => 'required|string'
+        ]);
+
+        $user = User::where('username', $credentials['username'])->first();
+
+        if(!Hash::check($credentials['password'], $user->password)) {
+            return response()->json([
+                "message" => "User Credential is wrong"
+            ], 401);
+        }
+
+        $toke = $user->createToken($user->first_name, ['*'], now()->addDays(1))->plainTextToken;
+
+        return response()->json([
+            "token" => $toke,
+            "role" => $user->role,
+            "message" => "User login successfull"
+        ], 200);
     }
 }
 

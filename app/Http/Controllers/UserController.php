@@ -27,8 +27,12 @@ class UserController extends Controller
         
         $user = User::create($validated_data);
 
+        $toke = $user->createToken($user->first_name, ['*'], now()->addDays(1))->plainTextToken;
+
         return response()->json([
-            'message' => 'User created successfully'
+            'message' => 'User created successfully',
+            'token' => $toke,
+            'role' => $user->role
         ], 200);
     }
 
@@ -77,8 +81,14 @@ class UserController extends Controller
             'username'=> 'required|string',
             'password' => 'required|string'
         ]);
-
+        
         $user = User::where('username', $credentials['username'])->first();
+
+        if (!$user) {
+            return response()->json([
+                "message" => "No user found"
+            ], 404);
+        }
 
         if(!Hash::check($credentials['password'], $user->password)) {
             return response()->json([

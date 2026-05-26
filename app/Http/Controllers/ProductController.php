@@ -21,7 +21,8 @@ class ProductController extends Controller
         $product = Product::create($validatedData);
 
         return response()->json([
-            "message" => "Product created successfully"
+            "message" => "Product created successfully",
+            "product" => $product
             ], 200);
     }
 
@@ -39,7 +40,8 @@ class ProductController extends Controller
         $product->update($validatedData);
 
         return response()->json([
-            "message" => "Product updated successfully"
+            "message" => "Product updated successfully",
+            "product" => $product
         ], 200);
     }
 
@@ -50,7 +52,8 @@ class ProductController extends Controller
         $product->delete();
 
         return response()->json([
-            "message" => "Product deleted successfully"
+            "message" => "Product deleted successfully",
+            "barcode" => $barcode
         ], 200);
     }
 

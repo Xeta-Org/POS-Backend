@@ -32,7 +32,14 @@ class UserController extends Controller
         return response()->json([
             'message' => 'User created successfully',
             'token' => $toke,
-            'role' => $user->role
+            'user' => [
+                'id' => $user->id,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'role' => $user->role,
+                'username' => $user->username,
+                'status' => $user->status
+            ]
         ], 200);
     }
 
@@ -54,7 +61,15 @@ class UserController extends Controller
         $user->update($validated_data);
 
         return response()->json([
-            "message" => "User updated successfully"
+            "message" => "User updated successfully",
+            'user' => [
+                'id' => $user->id,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'role' => $user->role,
+                'username' => $user->username,
+                'status' => $user->status
+            ]
         ], 200);
     }
 
@@ -64,7 +79,8 @@ class UserController extends Controller
         $user->delete();
 
         return response()->json([
-            "message" => "User deleted successfully"
+            "message" => "User deleted successfully",
+            "userId" => $id
         ], 200);
     }
 
